@@ -3,6 +3,10 @@ export enum COLORS {
   BLACK = 'b',
 }
 
+export type ColorClasses = {
+  [K in COLORS]: string;
+};
+
 export enum FIGURES {
   PAWN = 'p',
   KNIGHT = 'n',
@@ -11,6 +15,10 @@ export enum FIGURES {
   QUEEN = 'q',
   KING = 'k',
 }
+
+export type FigureClasses = {
+  [K in FIGURES]: string;
+};
 
 export enum FLAGS {
   NORMAL = 'n',
@@ -63,6 +71,15 @@ export interface Kings {
 export interface BoardItem {
   type: `${FIGURES}`;
   color: `${COLORS}`;
+}
+
+export interface BoardCell {
+  name: number;
+  x: number;
+  y: number;
+  figure: BoardItem | null;
+  selected: boolean;
+  available: boolean;
 }
 
 export interface Comments {

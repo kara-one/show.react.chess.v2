@@ -5,7 +5,11 @@ import BoardComponent from './components/BoardComponent';
 function App() {
   return (
     <div className="App">
-      <BoardComponent />
+      <div className="board-wrap">
+        <BoardComponent />
+      </div>
+      <div className="history-wrap">
+      </div>
     </div>
   );
 }

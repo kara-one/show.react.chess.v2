@@ -2,6 +2,7 @@ import { Dispatch } from 'react';
 import {
   BoardActions,
   BoardActionTypes,
+  BoardCell,
   BoardItem,
   COLORS,
   FIGURES,
@@ -40,7 +41,7 @@ const boardLoadAction = (
     getState: Function,
   ): void => {
     // Get State
-    const { chess } = <RootReducer>getState();
+    const { chess } = getState() as RootReducer;
 
     // Checking what props fen is new
     if (fen === chess.fen) {
@@ -99,7 +100,8 @@ const boardLoadAction = (
       header: !keep_headers ? chess.header : {},
     });
 
-    const fenPieces = parsedFen.pieces.replace(/[\/]/g, '8');
+    const fenPiecesRegexp = new RegExp('[/]', 'g');
+    const fenPieces = parsedFen.pieces.replace(fenPiecesRegexp, '8');
     let squareBit = 0;
     for (let i = 0; i < fenPieces.length; i++) {
       const char = fenPieces.charAt(i);
@@ -160,7 +162,7 @@ const boardPutCellAction = (
 ): Function => {
   return (dispatch: Dispatch<BoardActions>, getState: Function): void => {
     const sq = SQUARES[square];
-    const { chess } = <RootReducer>getState();
+    const { chess } = getState() as RootReducer;
     const copyChess = clone(chess);
 
     // don't let the user place more than one king
@@ -187,11 +189,12 @@ const boardPutCellAction = (
   };
 };
 
-const templateAction = (): Function => {
+const cellClickAction = (cell: BoardCell): Function => {
   return (dispatch: Dispatch<BoardActions>, getState: Function): void => {};
 };
 
 export const boardActions = {
   boardLoadAction,
   boardPutCellAction,
+  cellClickAction,
 };

@@ -8,6 +8,7 @@ import {
 } from '../store/initialState';
 import {
   BITS,
+  BoardCell,
   BoardItem,
   COLORS,
   Fen,
@@ -24,23 +25,32 @@ import {
 /**
  * Calculating the Display Board
  * @implements Chess.board()
- * @param {BoardItem[]} board
- * @returns {Array<Array<BoardItem | null>>} calculateBoard
+ * @param {BoardItem[]} board = BoardItem[]
+ * @returns {BoardCell[][]} BoardCell[][]
  */
-export const getBoard = (board: BoardItem[]): Array<Array<BoardItem | null>> => {
-  const calculateBoard: Array<Array<BoardItem | null>> = [];
-  let row: Array<BoardItem | null> = [];
+export const getBoard = (board: BoardItem[]): BoardCell[][] => {
+  const calculateBoard: BoardCell[][] = [];
+  let row: BoardCell[] = [];
+  let x = 0;
+  let y = 0;
 
   for (let i = SQUARES.a8; i <= SQUARES.h1; i++) {
-    if (board[i] == null) {
-      row.push(null);
-    } else {
-      row.push({ type: board[i].type, color: board[i].color });
-    }
+    row.push({
+      name: i,
+      x,
+      y,
+      figure: board[i],
+      selected: false,
+      available: false,
+    });
+    x++;
+
     if ((i + 1) & 0x88) {
       calculateBoard.push(row);
       row = [];
       i += 8;
+      x = 0;
+      y++;
     }
   }
 
@@ -204,8 +214,8 @@ export const parseValidateFen = (
   }
 
   if (
-    (tokens[3][1] == '3' && tokens[1] == 'w') ||
-    (tokens[3][1] == '6' && tokens[1] == 'b')
+    (tokens[3][1] === '3' && tokens[1] === 'w') ||
+    (tokens[3][1] === '6' && tokens[1] === 'b')
   ) {
     return returnData({ parsedFen: null, error_number: 11, error: errors[11] });
   }
@@ -327,8 +337,8 @@ export const validate_fen = (fen: string): ValidateFen => {
   }
 
   if (
-    (tokens[3][1] == '3' && tokens[1] == 'w') ||
-    (tokens[3][1] == '6' && tokens[1] == 'b')
+    (tokens[3][1] === '3' && tokens[1] === 'w') ||
+    (tokens[3][1] === '6' && tokens[1] === 'b')
   ) {
     return { valid: false, error_number: 11, error: errors[11] };
   }
@@ -347,7 +357,7 @@ export const generate_fen = (state: IBoardState): string => {
   let fen = '';
 
   for (let i = SQUARES.a8; i <= SQUARES.h1; i++) {
-    if (state.board[i] == null) {
+    if (state.board[i] === null) {
       empty++;
       continue;
     }
@@ -737,7 +747,7 @@ export const attacked = (
     }
 
     // if empty square or wrong color
-    if (board[i] == null || board[i].color !== color) continue;
+    if (board[i] === null || board[i].color !== color) continue;
 
     const piece = board[i];
     const difference = i - square;
@@ -761,7 +771,7 @@ export const attacked = (
 
       let blocked = false;
       while (j !== square) {
-        if (board[j] != null) {
+        if (board[j] !== null) {
           blocked = true;
           break;
         }
@@ -1113,7 +1123,7 @@ export const ascii = (board: BoardItem[]) => {
     }
 
     /* empty piece */
-    if (board[i] == null) {
+    if (board[i] === null) {
       s += ' . ';
     } else {
       const piece = board[i].type;

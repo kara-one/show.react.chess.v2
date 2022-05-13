@@ -1,0 +1,147 @@
+@import "../variables";
+
+.cell {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+
+  &.light {
+    background-color: $white;
+  }
+
+  &.dark {
+    background-color: $green;
+  }
+
+  &.highlight {
+    background-color: $highlight;
+  }
+
+  &.hint {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 50;
+      background-color: $blackHint;
+      width: 50%;
+      height: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &.black {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 100;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%, -50%);
+    }
+    &.rook {
+      &::before {
+        background-image: url(../assets/black_rook.png);
+      }
+    }
+    &.knight {
+      &::before {
+        background-image: url(../assets/black_knight.png);
+      }
+    }
+    &.bishop {
+      &::before {
+        background-image: url(../assets/black_bishop.png);
+      }
+    }
+    &.queen {
+      &::before {
+        background-image: url(../assets/black_queen.png);
+      }
+    }
+    &.king {
+      &::before {
+        background-image: url(../assets/black_king.png);
+      }
+      &.hint {
+        &::before {
+          background-color: $regHint;
+        }
+      }
+    }
+    &.pawn {
+      &::before {
+        background-image: url(../assets/black_pawn.png);
+      }
+    }
+    &.hint {
+      &::before {
+        background-color: $greenHint;
+      }
+    }
+  }
+
+  &.white {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 100;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%, -50%);
+    }
+    &.rook {
+      &::before {
+        background-image: url(../assets/white_rook.png);
+      }
+    }
+    &.knight {
+      &::before {
+        background-image: url(../assets/white_knight.png);
+      }
+    }
+    &.bishop {
+      &::before {
+        background-image: url(../assets/white_bishop.png);
+      }
+    }
+    &.queen {
+      &::before {
+        background-image: url(../assets/white_queen.png);
+      }
+    }
+    &.king {
+      &::before {
+        background-image: url(../assets/white_king.png);
+      }
+      &.hint {
+        &::before {
+          background-color: $regHint;
+        }
+      }
+    }
+    &.pawn {
+      &::before {
+        background-image: url(../assets/white_pawn.png);
+      }
+    }
+    &.hint {
+      &::before {
+        background-color: $greenHint;
+      }
+    }
+  }
+}

@@ -8,6 +8,27 @@ import {
 
 export const IS_DEVELOP = false;
 
+export const labelChars: Array<string> = [
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
+];
+export const labelNums: Array<string> = [
+  '8',
+  '7',
+  '6',
+  '5',
+  '4',
+  '3',
+  '2',
+  '1',
+];
+
 export const FEN_ERRORS = {
   0: 'No errors.',
   1: 'FEN string must contain six space-delimited fields.',
