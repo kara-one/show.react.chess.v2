@@ -1,4 +1,8 @@
-import { BoardCell, ColorClasses, FigureClasses } from '../../types/boardTypes';
+import {
+  ColorClasses,
+  FigureClasses,
+} from '../../types/typesBoard/typesBoardFigures';
+import { BoardCell } from '../../types/typesBoard/typesBoardState';
 
 const figureType: FigureClasses = {
   p: 'pawn',
@@ -14,7 +18,7 @@ const figureColor: ColorClasses = {
   w: 'white',
 };
 
-export const getCellClasses = (cell: BoardCell): string => {
+const getCellClasses = (cell: BoardCell): string => {
   const cellClasses = ['cell'];
 
   cellClasses.push(`x${cell.x.toString()}`);
@@ -40,4 +44,8 @@ export const getCellClasses = (cell: BoardCell): string => {
   }
 
   return cellClasses.join(' ');
+};
+
+export const utilGetCellClasses = {
+  getCellClasses,
 };

@@ -1,8 +1,8 @@
 import './CellComponent.scss';
 import React, { FC } from 'react';
 import { useActions } from '../hooks/useActions';
-import { BoardCell } from '../types/boardTypes';
-import { getCellClasses } from '../utils/boardUtils/getCellClasses';
+import { boardUtils } from '../utils/boardUtils';
+import { BoardCell } from '../types/typesBoard/typesBoardState';
 
 interface CellProps {
   curentCell: BoardCell;
@@ -15,7 +15,12 @@ const CellComponent: FC<CellProps> = ({ curentCell }) => {
     cellClickAction(curentCell);
   }
 
-  return <div className={getCellClasses(curentCell)} onClick={cellClick}></div>;
+  return (
+    <div
+      className={boardUtils.getCellClasses(curentCell)}
+      onClick={cellClick}
+    ></div>
+  );
 };
 
 export default CellComponent;

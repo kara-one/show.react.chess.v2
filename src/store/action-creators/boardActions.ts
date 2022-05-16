@@ -2,22 +2,20 @@ import { Dispatch } from 'react';
 import {
   BoardActions,
   BoardActionTypes,
-  BoardCell,
-  BoardItem,
-  COLORS,
-  FIGURES,
-  IBoardState,
+} from '../../types/typesBoard/typesBoardActions';
+import {
   ParsedFen,
   ParseValidateFen,
-  SQUARES,
-} from '../../types/boardTypes';
+} from '../../types/typesBoard/typesBoardFen';
+import { COLORS, FIGURES } from '../../types/typesBoard/typesBoardFigures';
 import {
-  algebraic,
-  clone,
-  generate_fen,
-  is_digit,
-  parseValidateFen,
-} from '../../utils/boardUtils';
+  BoardCell,
+  BoardItem,
+  IBoardState,
+  SQUARES,
+} from '../../types/typesBoard/typesBoardState';
+
+import { boardUtils } from '../../utils/boardUtils';
 import { DEFAULT_POSITION, EMPTY, IS_DEVELOP } from '../initialState';
 import { RootReducer } from '../reducers';
 
@@ -51,7 +49,7 @@ const boardLoadAction = (
     // Validate fen
     const isDevelop = IS_DEVELOP;
     const checkFen: ParseValidateFen | ParseValidateFen['parsedFen'] =
-      parseValidateFen(fen, isDevelop);
+      boardUtils.parseValidateFen(fen, isDevelop);
 
     if (
       (!isDevelop && checkFen === null) ||
@@ -63,7 +61,7 @@ const boardLoadAction = (
       return;
     }
 
-    const copyChess = clone(chess);
+    const copyChess = boardUtils.clone(chess);
     const parsedFen: ParsedFen =
       isDevelop && checkFen && 'parsedFen' in checkFen
         ? (checkFen.parsedFen as ParsedFen)
@@ -106,7 +104,7 @@ const boardLoadAction = (
     for (let i = 0; i < fenPieces.length; i++) {
       const char = fenPieces.charAt(i);
 
-      if (is_digit(char)) {
+      if (boardUtils.isDigit(char)) {
         squareBit += parseInt(char, 10);
         continue;
       }
@@ -116,7 +114,7 @@ const boardLoadAction = (
         type: char.toLowerCase() as `${FIGURES}`,
         color: color,
       };
-      const square = algebraic(squareBit);
+      const square = boardUtils.algebraic(squareBit);
       const sq = SQUARES[square];
 
       if (
@@ -163,7 +161,7 @@ const boardPutCellAction = (
   return (dispatch: Dispatch<BoardActions>, getState: Function): void => {
     const sq = SQUARES[square];
     const { chess } = getState() as RootReducer;
-    const copyChess = clone(chess);
+    const copyChess = boardUtils.clone(chess);
 
     // don't let the user place more than one king
     if (
@@ -181,7 +179,7 @@ const boardPutCellAction = (
       dispatch({ type: BoardActionTypes.BOARD_KINGS, kings: copyChess.kings });
     }
 
-    const fen = generate_fen(copyChess);
+    const fen = boardUtils.generateFen(copyChess);
     dispatch({ type: BoardActionTypes.BOARD_FEN, fen: fen });
 
     /** TODO: Меняет header не понятно зачем? */

@@ -2,14 +2,14 @@ import './BoardComponent.scss';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
-import { getBoard } from '../utils/boardUtils';
+import { boardUtils } from '../utils/boardUtils';
 import { labelChars, labelNums } from '../store/initialState';
 import CellComponent from './CellComponent';
 
 const BoardComponent: FC = () => {
   const { board } = useTypedSelector((state) => state.chess);
   const { boardLoadAction } = useActions();
-  const [currentBoard, setCurrentBoard] = useState(getBoard(board));
+  const [currentBoard, setCurrentBoard] = useState(boardUtils.getBoard(board));
   const [boardSide, setBoardSide] = useState(0);
 
   /** BOARD INIT */
@@ -23,7 +23,7 @@ const BoardComponent: FC = () => {
 
   /** BOARD CREATE */
   useEffect(() => {
-    setCurrentBoard(getBoard(board));
+    setCurrentBoard(boardUtils.getBoard(board));
   }, [board]);
 
   /** BOARD RESIZE */

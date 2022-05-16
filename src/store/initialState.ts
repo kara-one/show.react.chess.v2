@@ -1,10 +1,6 @@
-import {
-  BITS,
-  COLORS,
-  FIGURES,
-  IBoardState,
-  SQUARES,
-} from '../types/boardTypes';
+import { COLORS, FIGURES } from "../types/typesBoard/typesBoardFigures";
+import { BITS, IBoardState, SQUARES } from "../types/typesBoard/typesBoardState";
+
 
 export const IS_DEVELOP = false;
 
