@@ -2,22 +2,19 @@ import { Dispatch } from 'react';
 import {
   BoardActions,
   BoardActionTypes,
-} from '../../types/typesBoard/typesBoardActions';
+} from '../../../types/typesBoard/typesBoardActions';
 import {
   ParsedFen,
   ParseValidateFen,
-} from '../../types/typesBoard/typesBoardFen';
-import { COLORS, FIGURES } from '../../types/typesBoard/typesBoardFigures';
+} from '../../../types/typesBoard/typesBoardFen';
+import { COLORS, FIGURES } from '../../../types/typesBoard/typesBoardFigures';
 import {
-  BoardCell,
-  BoardItem,
   IBoardState,
   SQUARES,
-} from '../../types/typesBoard/typesBoardState';
-
-import { boardUtils } from '../../utils/boardUtils';
-import { DEFAULT_POSITION, EMPTY, IS_DEVELOP } from '../initialState';
-import { RootReducer } from '../reducers';
+} from '../../../types/typesBoard/typesBoardState';
+import { boardUtils } from '../../../utils/boardUtils';
+import { DEFAULT_POSITION, EMPTY, IS_DEVELOP } from '../../initialState';
+import { RootReducer } from '../../reducers';
 
 /**
  * TODO: Проверить: не вносятся изменеия в history и comments?
@@ -147,52 +144,4 @@ const boardLoadAction = (
   };
 };
 
-/**
- * Insert changes into one board cell
- * @Implementation Chess.put()
- * @param {BoardItem} piece
- * @param {keyof typeof SQUARES} square
- * @returns {Function}
- */
-const boardPutCellAction = (
-  piece: BoardItem,
-  square: keyof typeof SQUARES,
-): Function => {
-  return (dispatch: Dispatch<BoardActions>, getState: Function): void => {
-    const sq = SQUARES[square];
-    const { chess } = getState() as RootReducer;
-    const copyChess = boardUtils.clone(chess);
-
-    // don't let the user place more than one king
-    if (
-      piece.type === FIGURES.KING &&
-      !(chess.kings[piece.color] === EMPTY || chess.kings[piece.color] === sq)
-    ) {
-      return;
-    }
-
-    copyChess.board[sq] = { type: piece.type, color: piece.color };
-    dispatch({ type: BoardActionTypes.BOARD_ITEM, board: copyChess.board });
-
-    if (piece.type === FIGURES.KING) {
-      copyChess.kings[piece.color] = sq;
-      dispatch({ type: BoardActionTypes.BOARD_KINGS, kings: copyChess.kings });
-    }
-
-    const fen = boardUtils.generateFen(copyChess);
-    dispatch({ type: BoardActionTypes.BOARD_FEN, fen: fen });
-
-    /** TODO: Меняет header не понятно зачем? */
-    // update_setup(fen);
-  };
-};
-
-const cellClickAction = (cell: BoardCell): Function => {
-  return (dispatch: Dispatch<BoardActions>, getState: Function): void => {};
-};
-
-export const boardActions = {
-  boardLoadAction,
-  boardPutCellAction,
-  cellClickAction,
-};
+export default boardLoadAction;

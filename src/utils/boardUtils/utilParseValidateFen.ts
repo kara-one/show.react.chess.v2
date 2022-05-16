@@ -12,6 +12,7 @@ import { BITS, SQUARES } from '../../types/typesBoard/typesBoardState';
  * TODO: В режиме IS_DEVELOP === true писать ошибки в лог, а ретурн этой функции сделать однозначным
  *
  * This function checks the structure and parses "fen" into object, can be called with error code
+ * @implements validate_fen
  * @param {Fen} fen
  * @param {boolean} isDevelop = false
  * @returns {ParseValidateFen | ParseValidateFen['parsedFen']} isDevelop ? { parsedFen, error_number, error } : parsedFen
