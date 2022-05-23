@@ -10,6 +10,8 @@ import { utilGetDisambiguator } from './utilGetDisambiguator';
 import { utilInsufficientMaterial } from './utilInsufficientMaterial';
 import { utilLambda } from './utilLambda';
 import { utilParseValidateFen } from './utilParseValidateFen';
+import { utilGenerateMoves } from './utilGenerateMoves';
+import { utilMakeMove } from './utilMakeMove';
 
 export const boardUtils = {
   ...utilGetCellClasses,
@@ -24,4 +26,6 @@ export const boardUtils = {
   ...utilLambda,
   ...utilClone,
   ...utilCopySquares,
+  ...utilGenerateMoves,
+  ...utilMakeMove,
 };
