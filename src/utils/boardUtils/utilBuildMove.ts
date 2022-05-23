@@ -1,6 +1,16 @@
 import { COLORS, FIGURES } from '../../types/typesBoard/typesBoardFigures';
 import { HistoryMove } from '../../types/typesBoard/typesBoardHistory';
-import { BITS, BoardItem } from '../../types/typesBoard/typesBoardState';
+import {
+  BITS,
+  BoardItem,
+  IBoardState,
+  SQUARES,
+} from '../../types/typesBoard/typesBoardState';
+
+interface PropsBuildMove {
+  board: IBoardState['board'];
+  turn: IBoardState['turn'];
+}
 
 /**
  *
@@ -19,28 +29,32 @@ import { BITS, BoardItem } from '../../types/typesBoard/typesBoardState';
   }
  */
 const buildMove = (
-  board: BoardItem[],
-  from: number,
-  to: number,
-  flags: `${BITS}`,
-  promotion: FIGURES,
-  turn: COLORS,
-): HistoryMove => {
+  chessData: PropsBuildMove,
+  from: SQUARES,
+  to: SQUARES,
+  flags: BITS,
+  promotion?: `${FIGURES}`,
+): HistoryMove | null => {
+  const boardFrom = chessData.board[from];
+  const boardTo = chessData.board[to];
+
+  if (boardFrom === null) return null;
+
   const move: HistoryMove = {
-    color: turn,
+    color: chessData.turn,
     from: from,
     to: to,
     flags: flags,
-    piece: board[from].type,
+    piece: boardFrom.type,
   };
 
   if (promotion) {
-    move.flags = `${BITS.PROMOTION}`;
+    move.flags = BITS.PROMOTION;
     move.promotion = promotion;
   }
 
-  if (board[to]) {
-    move.captured = board[to].type;
+  if (boardTo !== null) {
+    move.captured = boardTo.type;
   } else if (+flags & BITS.EP_CAPTURE) {
     move.captured = FIGURES.PAWN;
   }

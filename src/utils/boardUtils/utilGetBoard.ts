@@ -1,6 +1,7 @@
 import {
   BoardCell,
   BoardItem,
+  IBoardState,
   SQUARES,
 } from '../../types/typesBoard/typesBoardState';
 
@@ -10,7 +11,7 @@ import {
  * @param {BoardItem[]} board = BoardItem[]
  * @returns {BoardCell[][]} BoardCell[][]
  */
-const getBoard = (board: BoardItem[]): BoardCell[][] => {
+const getBoard = (board: IBoardState['board'], selectSquare: IBoardState['selectSquare']): BoardCell[][] => {
   const calculateBoard: BoardCell[][] = [];
   let row: BoardCell[] = [];
   let x = 0;
@@ -22,7 +23,7 @@ const getBoard = (board: BoardItem[]): BoardCell[][] => {
       x,
       y,
       figure: board[i],
-      selected: false,
+      selected: i === selectSquare,
       available: false,
     });
     x++;

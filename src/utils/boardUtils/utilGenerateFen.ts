@@ -17,7 +17,8 @@ const generateFen = (state: IBoardState): string => {
   let fen = '';
 
   for (let i = SQUARES.a8; i <= SQUARES.h1; i++) {
-    if (state.board[i] === null) {
+    const boardI = state.board[i];
+    if (boardI === null) {
       empty++;
       continue;
     }
@@ -27,8 +28,8 @@ const generateFen = (state: IBoardState): string => {
       empty = 0;
     }
 
-    const color = state.board[i].color;
-    const piece = state.board[i].type;
+    const color = boardI.color;
+    const piece = boardI.type;
 
     fen += color === COLORS.WHITE ? piece.toUpperCase() : piece.toLowerCase();
 

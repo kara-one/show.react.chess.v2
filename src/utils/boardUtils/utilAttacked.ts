@@ -1,11 +1,17 @@
+import { boardUtils } from '.';
 import { ATTACKS, RAYS, SHIFTS } from '../../store/initialState';
-import { COLORS, FIGURES } from '../../types/typesBoard/typesBoardFigures';
-import { BoardItem, SQUARES } from '../../types/typesBoard/typesBoardState';
+import {
+  COLORS,
+  FIGURES,
+  Kings,
+} from '../../types/typesBoard/typesBoardFigures';
+import { IBoardState, SQUARES } from '../../types/typesBoard/typesBoardState';
+import { PropsGenerateMoves } from './utilGenerateMoves';
 
 /** TODO: Оставляем */
 const attacked = (
-  board: BoardItem[],
-  color: COLORS,
+  board: IBoardState['board'],
+  color: `${COLORS}`,
   square: number,
 ): boolean => {
   for (let i = SQUARES.a8; i <= SQUARES.h1; i++) {
@@ -16,24 +22,24 @@ const attacked = (
     }
 
     // if empty square or wrong color
-    if (board[i] === null || board[i].color !== color) continue;
+    const boardI = board[i];
+    if (boardI === null || boardI.color !== color) continue;
 
-    const piece = board[i];
     const difference = i - square;
     const index = difference + 119;
 
-    if (ATTACKS[index] & (1 << SHIFTS[piece.type])) {
-      if (piece.type === FIGURES.PAWN) {
+    if (ATTACKS[index] & (1 << SHIFTS[boardI.type])) {
+      if (boardI.type === FIGURES.PAWN) {
         if (difference > 0) {
-          if (piece.color === COLORS.WHITE) return true;
+          if (boardI.color === COLORS.WHITE) return true;
         } else {
-          if (piece.color === COLORS.BLACK) return true;
+          if (boardI.color === COLORS.BLACK) return true;
         }
         continue;
       }
 
       // if the piece is a knight or a king
-      if (piece.type === 'n' || piece.type === 'k') return true;
+      if (boardI.type === 'n' || boardI.type === 'k') return true;
 
       const offset = RAYS[index];
       let j = i + offset;
@@ -54,4 +60,40 @@ const attacked = (
   return false;
 };
 
-export const utilAttacked = { attacked };
+const king_attacked = (
+  board: IBoardState['board'],
+  color: `${COLORS}`,
+  kings: Kings,
+) => {
+  return attacked(board, boardUtils.swap_color(color), kings[color]);
+};
+
+const in_check = (
+  board: IBoardState['board'],
+  turn: `${COLORS}`,
+  kings: Kings,
+) => {
+  return king_attacked(board, turn, kings);
+};
+
+const in_checkmate = (chessData: PropsGenerateMoves) => {
+  return (
+    in_check(chessData.board, chessData.turn, chessData.kings) &&
+    boardUtils.generateMoves(chessData).length === 0
+  );
+};
+
+const in_stalemate = (chessData: PropsGenerateMoves) => {
+  return (
+    !in_check(chessData.board, chessData.turn, chessData.kings) &&
+    boardUtils.generateMoves(chessData).length === 0
+  );
+};
+
+export const utilAttacked = {
+  attacked,
+  king_attacked,
+  in_check,
+  in_checkmate,
+  in_stalemate,
+};

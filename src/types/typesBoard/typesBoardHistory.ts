@@ -1,6 +1,6 @@
 import { Fen } from "./typesBoardFen";
 import { COLORS, FIGURES, Kings } from "./typesBoardFigures";
-import { BITS } from "./typesBoardState";
+import { BITS, SQUARES } from "./typesBoardState";
 
 export interface Comments {
   [Name: Fen]: any;
@@ -8,10 +8,10 @@ export interface Comments {
 
 export interface HistoryMove {
   color: `${COLORS}`;
-  from: number;
-  to: number;
+  from: SQUARES;
+  to: SQUARES;
   piece: `${FIGURES}`;
-  flags: `${BITS}`;
+  flags: BITS;
   captured?: `${FIGURES}`;
   promotion?: `${FIGURES}`;
 }
