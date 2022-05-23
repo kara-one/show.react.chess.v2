@@ -30,6 +30,8 @@ export const boardReducer = (
       return { ...state, header: action.header };
     case BoardActionTypes.BOARD_COMMENTS:
       return { ...state, comments: action.comments };
+    case BoardActionTypes.BOARD_SELECT_CELL:
+      return { ...state, selectSquare: action.selectSquare };
     default:
       return state;
   }

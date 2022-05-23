@@ -1,6 +1,7 @@
-import { Fen } from "./typesBoardFen";
-import { COLORS, FIGURES, Kings } from "./typesBoardFigures";
-import { Comments } from "./typesBoardHistory";
+import { type } from 'os';
+import { Fen } from './typesBoardFen';
+import { COLORS, FIGURES, Kings } from './typesBoardFigures';
+import { Comments, History } from './typesBoardHistory';
 
 export type POSSIBLE_RESULTS = '1-0' | '0-1' | '1/2-1/2' | '*';
 
@@ -62,8 +63,9 @@ export interface BoardCell {
 }
 
 export interface IBoardState {
-  board: BoardItem[];
+  board: Array<BoardItem | null>;
   currentPlayer?: `${COLORS}`;
+  selectSquare: number;
   fen: Fen;
   kings: Kings;
   turn: `${COLORS}`;

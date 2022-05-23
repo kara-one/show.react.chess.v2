@@ -119,6 +119,7 @@ export const ROOKS = {
 export const initialState: IBoardState = {
   board: new Array(128),
   currentPlayer: COLORS.WHITE,
+  selectSquare: EMPTY,
   fen: '',
   kings: { w: EMPTY, b: EMPTY },
   turn: COLORS.WHITE,
