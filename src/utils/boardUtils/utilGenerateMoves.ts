@@ -17,8 +17,8 @@ interface nextMovesChessData {
 
 const nextMoves = (
   chessData: nextMovesChessData,
-  to: SQUARES,
   from: SQUARES,
+  to: SQUARES,
   flags: BITS,
 ): HistoryMove[] => {
   /** TODO: Собрать аргументы в массив и в вызове делать рест */
@@ -28,7 +28,7 @@ const nextMoves = (
   /* if pawn promotion */
   const boardFrom = chessData.board[from];
   if (
-    boardFrom !== null &&
+    boardFrom &&
     boardFrom.type === FIGURES.PAWN &&
     (boardUtils.rank(to) === RANKS.RANK_8 ||
       boardUtils.rank(to) === RANKS.RANK_1)
@@ -53,6 +53,7 @@ const nextMoves = (
     }
   } else {
     const buildMove = boardUtils.buildMove(chessData, from, to, flags);
+
     if (buildMove !== null) {
       returnMoves.push(buildMove);
     }
@@ -74,13 +75,13 @@ export interface PropsGenerateMoves {
 /**
  * Calculate moves for one or more Figures
  * @param {PropsGenerateMoves} chessData: PropsGenerateMoves
- * @param {`${SQUARES}`} cellName?: `${SQUARES}`
+ * @param {`${SQUARES}`} square?: `${SQUARES}`
  * @param {boolean} legal = true
  * @returns {HistoryMove[]} HistoryMove[]
  */
 const generateMoves = (
   chessData: PropsGenerateMoves,
-  cellName?: `${SQUARES}`,
+  square?: number,
   legal: boolean = true,
 ): HistoryMove[] => {
   const copyChessData: PropsMakeMove = boardUtils.clone(chessData);
@@ -93,9 +94,9 @@ const generateMoves = (
   const them = boardUtils.swap_color(copyChessData.turn);
   const secondRank = { b: RANKS.RANK_7, w: RANKS.RANK_2 };
 
-  const firstSq = cellName ? parseInt(SQUARES[cellName]) : SQUARES.a8;
-  const lastSq = cellName ? parseInt(SQUARES[cellName]) : SQUARES.h1;
-  const isSingleSquare = cellName ? true : false;
+  const firstSq = square || SQUARES.a8;
+  const lastSq = square || SQUARES.h1;
+  const isSingleSquare = square ? true : false;
 
   /* do we want legal moves?
   const legal =
@@ -127,19 +128,19 @@ const generateMoves = (
     if (boardI.type === FIGURES.PAWN) {
       /* single square, non-capturing */
       const squareSingle = i + PAWN_OFFSETS[copyChessData.turn][0];
-      if (copyChessData.board[squareSingle] === null) {
-        moves.concat(
-          nextMoves(nextMovesChessData, i, squareSingle, BITS.NORMAL),
+      if (!copyChessData.board[squareSingle]) {
+        moves.push(
+          ...nextMoves(nextMovesChessData, i, squareSingle, BITS.NORMAL),
         );
 
         /* double square */
         const squareDouble = i + PAWN_OFFSETS[copyChessData.turn][1];
         if (
           secondRank[copyChessData.turn] === boardUtils.rank(i) &&
-          copyChessData.board[squareDouble] === null
+          !copyChessData.board[squareDouble]
         ) {
-          moves.concat(
-            nextMoves(nextMovesChessData, i, squareDouble, BITS.BIG_PAWN),
+          moves.push(
+            ...nextMoves(nextMovesChessData, i, squareDouble, BITS.BIG_PAWN),
           );
         }
       }
@@ -151,13 +152,13 @@ const generateMoves = (
 
         const boardSquare = copyChessData.board[squareCapture];
 
-        if (boardSquare !== null && boardSquare.color === them) {
-          moves.concat(
-            nextMoves(nextMovesChessData, i, squareCapture, BITS.CAPTURE),
+        if (boardSquare && boardSquare.color === them) {
+          moves.push(
+            ...nextMoves(nextMovesChessData, i, squareCapture, BITS.CAPTURE),
           );
         } else if (squareCapture === copyChessData.ep_square) {
-          moves.concat(
-            nextMoves(
+          moves.push(
+            ...nextMoves(
               nextMovesChessData,
               i,
               copyChessData.ep_square,
@@ -169,19 +170,21 @@ const generateMoves = (
     } else {
       for (let j = 0; j < PIECE_OFFSETS[boardI.type].length; j++) {
         const offset = PIECE_OFFSETS[boardI.type][j];
-        let square = i;
+        let squareGeneral = i;
 
         while (true) {
-          square += offset;
-          if (square & 0x88) break;
+          squareGeneral += offset;
+          if (squareGeneral & 0x88) break;
 
-          const boardSquare = copyChessData.board[square];
+          const boardSquare = copyChessData.board[squareGeneral];
           if (boardSquare === null) {
-            moves.concat(nextMoves(nextMovesChessData, i, square, BITS.NORMAL));
+            moves.push(
+              ...nextMoves(nextMovesChessData, i, squareGeneral, BITS.NORMAL),
+            );
           } else {
             if (boardSquare.color === copyChessData.turn) break;
-            moves.concat(
-              nextMoves(nextMovesChessData, i, square, BITS.CAPTURE),
+            moves.push(
+              ...nextMoves(nextMovesChessData, i, squareGeneral, BITS.CAPTURE),
             );
             break;
           }
@@ -213,8 +216,8 @@ const generateMoves = (
         !boardUtils.attacked(copyChessData.board, them, castling_from + 1) &&
         !boardUtils.attacked(copyChessData.board, them, castling_to)
       ) {
-        moves.concat(
-          nextMoves(
+        moves.push(
+          ...nextMoves(
             nextMovesChessData,
             copyChessData.kings[copyChessData.turn],
             castling_to,
@@ -241,8 +244,8 @@ const generateMoves = (
         !boardUtils.attacked(copyChessData.board, them, castling_from - 1) &&
         !boardUtils.attacked(copyChessData.board, them, castling_to)
       ) {
-        moves.concat(
-          nextMoves(
+        moves.push(
+          ...nextMoves(
             nextMovesChessData,
             copyChessData.kings[copyChessData.turn],
             castling_to,

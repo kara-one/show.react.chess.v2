@@ -1,6 +1,9 @@
-import { COLORS, FIGURES } from "../types/typesBoard/typesBoardFigures";
-import { BITS, IBoardState, SQUARES } from "../types/typesBoard/typesBoardState";
-
+import { COLORS, FIGURES } from '../types/typesBoard/typesBoardFigures';
+import {
+  BITS,
+  IBoardState,
+  SQUARES,
+} from '../types/typesBoard/typesBoardState';
 
 export const IS_DEVELOP = false;
 
@@ -120,6 +123,7 @@ export const initialState: IBoardState = {
   board: new Array(128),
   currentPlayer: COLORS.WHITE,
   selectSquare: EMPTY,
+  availables: [],
   fen: '',
   kings: { w: EMPTY, b: EMPTY },
   turn: COLORS.WHITE,

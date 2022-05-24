@@ -15,6 +15,7 @@ export enum BoardActionTypes {
   BOARD_HEADER = 'BOARD_HEADER',
   BOARD_COMMENTS = 'BOARD_COMMENTS',
   BOARD_SELECT_CELL = 'BOARD_SELECT_CELL',
+  BOARD_AVAILABLES = 'BOARD_AVAILABLES',
 }
 
 interface BoardItemAction {
@@ -65,6 +66,10 @@ interface BoardSelectCellAction {
   type: BoardActionTypes.BOARD_SELECT_CELL;
   selectSquare: IBoardState['selectSquare'];
 }
+interface BoardAvailablesAction {
+  type: BoardActionTypes.BOARD_AVAILABLES;
+  availables: IBoardState['availables'];
+}
 
 export type BoardActions =
   | BoardItemAction
@@ -78,4 +83,5 @@ export type BoardActions =
   | BoardHistoryAction
   | BoardHeaderAction
   | BoardCommentsAction
-  | BoardSelectCellAction;
+  | BoardSelectCellAction
+  | BoardAvailablesAction;

@@ -1,8 +1,7 @@
-import { COLORS, FIGURES } from '../../types/typesBoard/typesBoardFigures';
+import { FIGURES } from '../../types/typesBoard/typesBoardFigures';
 import { HistoryMove } from '../../types/typesBoard/typesBoardHistory';
 import {
   BITS,
-  BoardItem,
   IBoardState,
   SQUARES,
 } from '../../types/typesBoard/typesBoardState';
@@ -38,7 +37,7 @@ const buildMove = (
   const boardFrom = chessData.board[from];
   const boardTo = chessData.board[to];
 
-  if (boardFrom === null) return null;
+  if (!boardFrom) return null;
 
   const move: HistoryMove = {
     color: chessData.turn,
@@ -53,7 +52,7 @@ const buildMove = (
     move.promotion = promotion;
   }
 
-  if (boardTo !== null) {
+  if (boardTo) {
     move.captured = boardTo.type;
   } else if (+flags & BITS.EP_CAPTURE) {
     move.captured = FIGURES.PAWN;

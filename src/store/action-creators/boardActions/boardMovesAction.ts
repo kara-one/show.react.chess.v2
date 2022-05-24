@@ -1,6 +1,12 @@
-import { Dispatch } from "react";
-import { BoardActions } from "../../../types/typesBoard/typesBoardActions";
-import { SQUARES } from "../../../types/typesBoard/typesBoardState";
+import { Dispatch } from 'react';
+import {
+  BoardActions,
+  BoardActionTypes,
+} from '../../../types/typesBoard/typesBoardActions';
+import { HistoryMove } from '../../../types/typesBoard/typesBoardHistory';
+import { boardUtils } from '../../../utils/boardUtils';
+import { PropsGenerateMoves } from '../../../utils/boardUtils/utilGenerateMoves';
+import { RootReducer } from '../../reducers';
 
 /**
  * The internal representation of a chess move is in 0x88 format, and
@@ -9,8 +15,36 @@ import { SQUARES } from "../../../types/typesBoard/typesBoardState";
  * unnecessary move keys resulting from a verbose call.
  * @returns void
  */
-const boardMovesAction = (square?: `${SQUARES}`, verbose?: boolean): Function => {
+const boardMovesAction = (square?: number, verbose?: boolean): Function => {
   return (dispatch: Dispatch<BoardActions>, getState: Function): void => {
+    const { chess } = getState() as RootReducer;
+    const copyChess = boardUtils.clone(chess);
+
+    if (
+      square &&
+      copyChess.board[square] !== null &&
+      copyChess.board[square]?.color === copyChess.turn
+    ) {
+      const chessData: PropsGenerateMoves = {
+        board: copyChess.board,
+        castling: copyChess.castling,
+        ep_square: copyChess.ep_square,
+        half_moves: copyChess.half_moves,
+        kings: copyChess.kings,
+        move_number: copyChess.move_number,
+        turn: copyChess.turn,
+      };
+      const availables: HistoryMove[] = boardUtils.generateMoves(
+        chessData,
+        square,
+        false,
+      );
+      console.log('moves: ', availables);
+      dispatch({
+        type: BoardActionTypes.BOARD_AVAILABLES,
+        availables: availables,
+      });
+    }
     /**
      var ugly_moves = generate_moves(options)
       var moves = []

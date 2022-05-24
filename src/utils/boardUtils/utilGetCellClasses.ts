@@ -23,6 +23,7 @@ const getCellClasses = (cell: BoardCell): string => {
 
   cellClasses.push(`x${cell.x.toString()}`);
   cellClasses.push(`y${cell.y.toString()}`);
+  cellClasses.push(`name${cell.name.toString()}`);
 
   if ((cell.x + cell.y) % 2 === 0) {
     cellClasses.push('dark');
