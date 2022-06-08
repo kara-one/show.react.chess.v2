@@ -2,23 +2,10 @@ import { boardUtils } from '.';
 import { EMPTY, ROOKS } from '../../store/initialState';
 import { COLORS, FIGURES } from '../../types/typesBoard/typesBoardFigures';
 import { HistoryMove } from '../../types/typesBoard/typesBoardHistory';
-import { BITS, IBoardState } from '../../types/typesBoard/typesBoardState';
+import { BITS, PropsMove } from '../../types/typesBoard/typesBoardState';
 
-export interface PropsMakeMove {
-  board: IBoardState['board'];
-  turn: IBoardState['turn'];
-  kings: IBoardState['kings'];
-  castling: IBoardState['castling'];
-  ep_square: IBoardState['ep_square'];
-  half_moves: IBoardState['half_moves'];
-  move_number: IBoardState['move_number'];
-}
-
-const makeMove = (
-  move: HistoryMove,
-  chessData: PropsMakeMove,
-): PropsMakeMove => {
-  const copyChessData: PropsMakeMove = boardUtils.clone(chessData);
+const makeMove = (move: HistoryMove, chessData: PropsMove): PropsMove => {
+  const copyChessData: PropsMove = boardUtils.clone(chessData);
   const turn = chessData.turn;
   const them = boardUtils.swap_color(turn);
 

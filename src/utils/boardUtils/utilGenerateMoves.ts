@@ -2,13 +2,13 @@ import { FIGURES } from '../../types/typesBoard/typesBoardFigures';
 import {
   BITS,
   IBoardState,
+  PropsMove,
   RANKS,
   SQUARES,
 } from '../../types/typesBoard/typesBoardState';
 import { boardUtils } from '../boardUtils';
 import { PAWN_OFFSETS, PIECE_OFFSETS } from '../../store/initialState';
 import { HistoryMove } from '../../types/typesBoard/typesBoardHistory';
-import { PropsMakeMove } from './utilMakeMove';
 
 interface nextMovesChessData {
   board: IBoardState['board'];
@@ -62,29 +62,19 @@ const nextMoves = (
   return returnMoves;
 };
 
-export interface PropsGenerateMoves {
-  board: IBoardState['board'];
-  turn: IBoardState['turn'];
-  kings: IBoardState['kings'];
-  castling: IBoardState['castling'];
-  ep_square: IBoardState['ep_square'];
-  half_moves: IBoardState['half_moves'];
-  move_number: IBoardState['move_number'];
-}
-
 /**
  * Calculate moves for one or more Figures
- * @param {PropsGenerateMoves} chessData: PropsGenerateMoves
+ * @param {PropsMove} chessData: PropsMove
  * @param {`${SQUARES}`} square?: `${SQUARES}`
  * @param {boolean} legal = true
  * @returns {HistoryMove[]} HistoryMove[]
  */
 const generateMoves = (
-  chessData: PropsGenerateMoves,
+  chessData: PropsMove,
   square?: number,
   legal: boolean = true,
 ): HistoryMove[] => {
-  const copyChessData: PropsMakeMove = boardUtils.clone(chessData);
+  const copyChessData: PropsMove = boardUtils.clone(chessData);
   const nextMovesChessData: nextMovesChessData = {
     board: copyChessData.board,
     turn: copyChessData.turn,
@@ -94,9 +84,9 @@ const generateMoves = (
   const them = boardUtils.swap_color(copyChessData.turn);
   const secondRank = { b: RANKS.RANK_7, w: RANKS.RANK_2 };
 
-  const firstSq = square || SQUARES.a8;
-  const lastSq = square || SQUARES.h1;
-  const isSingleSquare = square ? true : false;
+  const firstSq = square !== undefined ? square : SQUARES.a8;
+  const lastSq = square !== undefined ? square : SQUARES.h1;
+  const isSingleSquare = square !== undefined ? true : false;
 
   /* do we want legal moves?
   const legal =
@@ -121,7 +111,13 @@ const generateMoves = (
     }
 
     const boardI = copyChessData.board[i];
-    if (boardI === null || boardI.color !== copyChessData.turn) {
+    // console.log('i: ', i);
+    // console.log('===boardI: ', boardI);
+    if (
+      boardI === null ||
+      boardI === undefined ||
+      boardI.color !== copyChessData.turn
+    ) {
       continue;
     }
 
@@ -168,6 +164,7 @@ const generateMoves = (
         }
       }
     } else {
+
       for (let j = 0; j < PIECE_OFFSETS[boardI.type].length; j++) {
         const offset = PIECE_OFFSETS[boardI.type][j];
         let squareGeneral = i;
@@ -177,12 +174,24 @@ const generateMoves = (
           if (squareGeneral & 0x88) break;
 
           const boardSquare = copyChessData.board[squareGeneral];
-          if (boardSquare === null) {
+          // console.log('===boardSquare: ', boardSquare);
+          if (boardSquare === null || boardSquare === undefined) {
+            /** Check is king attacked */
+            if (
+              boardI.type === 'k' &&
+              boardUtils.attacked(
+                copyChessData.board,
+                boardUtils.swap_color(boardI.color),
+                squareGeneral,
+              )
+            ) {
+              break;
+            }
             moves.push(
               ...nextMoves(nextMovesChessData, i, squareGeneral, BITS.NORMAL),
             );
           } else {
-            if (boardSquare.color === copyChessData.turn) break;
+            if (boardSquare && boardSquare.color === copyChessData.turn) break;
             moves.push(
               ...nextMoves(nextMovesChessData, i, squareGeneral, BITS.CAPTURE),
             );
@@ -286,6 +295,7 @@ const generateMoves = (
       legal_moves.push(moves[i]);
     }
   }
+  // console.log('legal_moves: ', legal_moves);
 
   return legal_moves;
 };

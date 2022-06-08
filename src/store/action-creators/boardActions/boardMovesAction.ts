@@ -4,8 +4,8 @@ import {
   BoardActionTypes,
 } from '../../../types/typesBoard/typesBoardActions';
 import { HistoryMove } from '../../../types/typesBoard/typesBoardHistory';
+import { PropsMove } from '../../../types/typesBoard/typesBoardState';
 import { boardUtils } from '../../../utils/boardUtils';
-import { PropsGenerateMoves } from '../../../utils/boardUtils/utilGenerateMoves';
 import { RootReducer } from '../../reducers';
 
 /**
@@ -21,11 +21,11 @@ const boardMovesAction = (square?: number, verbose?: boolean): Function => {
     const copyChess = boardUtils.clone(chess);
 
     if (
-      square &&
+      square !== undefined &&
       copyChess.board[square] !== null &&
       copyChess.board[square]?.color === copyChess.turn
     ) {
-      const chessData: PropsGenerateMoves = {
+      const chessData: PropsMove = {
         board: copyChess.board,
         castling: copyChess.castling,
         ep_square: copyChess.ep_square,
@@ -34,12 +34,13 @@ const boardMovesAction = (square?: number, verbose?: boolean): Function => {
         move_number: copyChess.move_number,
         turn: copyChess.turn,
       };
+      // console.log('square: ', square);
       const availables: HistoryMove[] = boardUtils.generateMoves(
         chessData,
         square,
         false,
       );
-      console.log('moves: ', availables);
+      // console.log('availables: ', availables);
       dispatch({
         type: BoardActionTypes.BOARD_AVAILABLES,
         availables: availables,

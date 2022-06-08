@@ -3,11 +3,9 @@ import {
   BoardActions,
   BoardActionTypes,
 } from '../../../types/typesBoard/typesBoardActions';
-import { HistoryMove } from '../../../types/typesBoard/typesBoardHistory';
+import { PropsMove } from '../../../types/typesBoard/typesBoardState';
 import { boardUtils } from '../../../utils/boardUtils';
-import {
-  PropsMakeMove,
-} from '../../../utils/boardUtils/utilMakeMove';
+import { EMPTY } from '../../initialState';
 import { RootReducer } from '../../reducers';
 import boardHistoryPushAction from './boardHistoryPushAction';
 
@@ -16,16 +14,19 @@ import boardHistoryPushAction from './boardHistoryPushAction';
  * @param {HistoryMove} move
  * @returns {void} void
  */
-const boardMakeMoveAction = (move: HistoryMove): Function => {
+const boardMakeMoveAction = (square: number): Function => {
   return (
     dispatch: Dispatch<BoardActions | Function>,
     getState: Function,
   ): void => {
     // Get State
     const { chess } = getState() as RootReducer;
+    const move = chess.availables.find((item) => item.to === square);
     const copyChess = boardUtils.clone(chess);
+    // console.log('move: ', move);
+    if (!move) return;
 
-    const chessData: PropsMakeMove = {
+    const chessData: PropsMove = {
       turn: copyChess.turn,
       board: copyChess.board,
       castling: copyChess.castling,
@@ -34,10 +35,7 @@ const boardMakeMoveAction = (move: HistoryMove): Function => {
       kings: copyChess.kings,
       move_number: copyChess.move_number,
     };
-    const chessMakeMove: PropsMakeMove = boardUtils.makeMove (
-      move,
-      chessData,
-    );
+    const chessMakeMove: PropsMove = boardUtils.makeMove(move, chessData);
 
     dispatch({ type: BoardActionTypes.BOARD_TURN, turn: chessMakeMove.turn });
     dispatch({ type: BoardActionTypes.BOARD_ITEM, board: chessMakeMove.board });
@@ -60,6 +58,14 @@ const boardMakeMoveAction = (move: HistoryMove): Function => {
     dispatch({
       type: BoardActionTypes.BOARD_MOVE_NUMBER,
       moveNumber: chessMakeMove.move_number,
+    });
+    dispatch({
+      type: BoardActionTypes.BOARD_SELECT_CELL,
+      selectSquare: EMPTY,
+    });
+    dispatch({
+      type: BoardActionTypes.BOARD_AVAILABLES,
+      availables: [],
     });
 
     dispatch(boardHistoryPushAction(move));
