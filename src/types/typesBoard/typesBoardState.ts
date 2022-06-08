@@ -15,13 +15,13 @@ export enum FLAGS {
 }
 
 export enum BITS {
-  NORMAL = 1, // 1
-  CAPTURE = 2, // 10
-  BIG_PAWN = 4, // 100
-  EP_CAPTURE = 8, // 1000
+  NORMAL = 1, // 1 // Чистый ход
+  CAPTURE = 2, // 10 // Взятие
+  BIG_PAWN = 4, // 100 // Длинный ход пешки
+  EP_CAPTURE = 8, // 1000 // Взятие на проходе
   PROMOTION = 16, // 10000
-  KSIDE_CASTLE = 32, // 100000
-  QSIDE_CASTLE = 64, // 1000000
+  KSIDE_CASTLE = 32, // 100000 // Рокировка
+  QSIDE_CASTLE = 64, // 1000000 // Рокировка
 }
 
 export enum RANKS {
@@ -59,6 +59,19 @@ export interface BoardCell {
   figure: BoardItem | null;
   selected: boolean;
   available: boolean;
+  check: boolean;
+  checkmate: boolean;
+}
+
+export interface Checkmate {
+  check: {
+    [COLORS.WHITE]: boolean;
+    [COLORS.BLACK]: boolean;
+  };
+  checkmate: {
+    [COLORS.WHITE]: boolean;
+    [COLORS.BLACK]: boolean;
+  };
 }
 
 export interface IBoardState {
@@ -74,6 +87,17 @@ export interface IBoardState {
   half_moves: number;
   move_number: number;
   history: History[];
+  checkmate: Checkmate,
   header?: object;
   comments: Comments;
+}
+
+export interface PropsMove {
+  board: IBoardState['board'];
+  turn: IBoardState['turn'];
+  kings: IBoardState['kings'];
+  castling: IBoardState['castling'];
+  ep_square: IBoardState['ep_square'];
+  half_moves: IBoardState['half_moves'];
+  move_number: IBoardState['move_number'];
 }

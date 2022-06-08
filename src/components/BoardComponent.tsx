@@ -7,12 +7,12 @@ import { labelChars, labelNums } from '../store/initialState';
 import CellComponent from './CellComponent';
 
 const BoardComponent: FC = () => {
-  const { board, selectSquare, availables } = useTypedSelector(
+  const { board, selectSquare, availables, checkmate } = useTypedSelector(
     (state) => state.chess,
   );
   const { boardLoadAction } = useActions();
   const [currentBoard, setCurrentBoard] = useState(
-    boardUtils.getBoard(board, selectSquare, availables),
+    boardUtils.getBoard(board, selectSquare, availables, checkmate),
   );
   const [boardSide, setBoardSide] = useState(0);
 
@@ -27,8 +27,10 @@ const BoardComponent: FC = () => {
 
   /** BOARD CREATE */
   useEffect(() => {
-    setCurrentBoard(boardUtils.getBoard(board, selectSquare, availables));
-  }, [board, selectSquare, availables]);
+    setCurrentBoard(
+      boardUtils.getBoard(board, selectSquare, availables, checkmate),
+    );
+  }, [board, selectSquare, availables, checkmate]);
 
   /** BOARD RESIZE */
   let resizeWindow = useCallback((elem: Element | null) => {

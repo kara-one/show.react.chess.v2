@@ -44,6 +44,14 @@ const getCellClasses = (cell: BoardCell): string => {
     cellClasses.push('hint');
   }
 
+  if (cell.check) {
+    cellClasses.push('check');
+  }
+
+  if (cell.checkmate) {
+    cellClasses.push('checkmate');
+  }
+
   return cellClasses.join(' ');
 };
 

@@ -1,6 +1,7 @@
 import { COLORS, FIGURES } from '../types/typesBoard/typesBoardFigures';
 import {
   BITS,
+  Checkmate,
   IBoardState,
   SQUARES,
 } from '../types/typesBoard/typesBoardState';
@@ -119,6 +120,17 @@ export const ROOKS = {
   ],
 };
 
+export const CHECKMATE: Checkmate = {
+  check: {
+    [COLORS.WHITE]: false,
+    [COLORS.BLACK]: false,
+  },
+  checkmate: {
+    [COLORS.WHITE]: false,
+    [COLORS.BLACK]: false,
+  },
+};
+
 export const initialState: IBoardState = {
   board: new Array(128),
   currentPlayer: COLORS.WHITE,
@@ -132,6 +144,7 @@ export const initialState: IBoardState = {
   half_moves: 0,
   move_number: 1,
   history: [],
+  checkmate: CHECKMATE,
   header: {},
   comments: {},
 };

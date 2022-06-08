@@ -1,6 +1,10 @@
 import { Dispatch } from 'react';
 import { BoardActions } from '../../../types/typesBoard/typesBoardActions';
+import { COLORS } from '../../../types/typesBoard/typesBoardFigures';
 import { BoardCell } from '../../../types/typesBoard/typesBoardState';
+import { RootReducer } from '../../reducers';
+import boardCheckmateAction from './boardCheckmateAction';
+import boardMakeMoveAction from './boardMakeMoveAction';
 import boardMovesAction from './boardMovesAction';
 import boardSetSelectedAction from './boardSetSelectedAction';
 
@@ -9,9 +13,15 @@ const cellClickAction = (curentCell: BoardCell): Function => {
     dispatch: Dispatch<BoardActions | Function>,
     getState: Function,
   ): void => {
-    // console.log('curentCell: ', curentCell);
-    dispatch(boardSetSelectedAction(curentCell.name));
-    dispatch(boardMovesAction(curentCell.name));
+    const { chess } = getState() as RootReducer;
+    const checkmate = chess.checkmate.checkmate;
+
+    if (checkmate[COLORS.WHITE] === false && checkmate[COLORS.BLACK] === false) {
+      dispatch(boardSetSelectedAction(curentCell.name));
+      dispatch(boardMovesAction(curentCell.name));
+      dispatch(boardMakeMoveAction(curentCell.name));
+      dispatch(boardCheckmateAction());
+    }
   };
 };
 
