@@ -1,4 +1,4 @@
-@import "../variables";
+@import '../variables';
 
 .cell {
   position: relative;
@@ -20,7 +20,7 @@
 
   &.hint {
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 50%;
       left: 50%;
@@ -35,7 +35,7 @@
 
   &.black {
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 50%;
       left: 50%;
@@ -91,7 +91,7 @@
 
   &.white {
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 50%;
       left: 50%;
@@ -141,6 +141,22 @@
     &.hint {
       &::before {
         background-color: $greenHint;
+      }
+    }
+  }
+
+  &.check {
+    &.king {
+      &::before {
+        background-image: url(../assets/check_king.png);
+      }
+    }
+  }
+
+  &.checkmate {
+    &.king {
+      &::before {
+        background-image: url(../assets/checkmate_king.png);
       }
     }
   }

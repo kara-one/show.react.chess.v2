@@ -15,7 +15,6 @@ put(piece, square) |
 remove(square) |
 *build_move(board, from, to, flags, promotion)*   |- utilBuildMove.buildMove
 *generate_moves(options)*                         |- utilGenerateMoves.generateMoves
-move_to_san(move, sloppy) |
 *stripped_san(move)*                              |- utilLambda.strippedSan
 *attacked(color, square)*                         |- utilAttacked.attacked
 *king_attacked(color)*                            |- utilAttacked.king_attacked
@@ -31,6 +30,7 @@ undo_move() |
 *get_disambiguator(move, sloppy)*                 |- utilGetDisambiguator.getDisambiguator
 *ascii()*                                         |- utilAscii.ascii
 move_from_san(move, sloppy) |
+move_to_san(move, sloppy) |
 *rank(i)*                                         |- utilLambda.rank
 *file(i)*                                         |- utilLambda.file
 *algebraic(i)*                                    |- utilLambda.algebraic
