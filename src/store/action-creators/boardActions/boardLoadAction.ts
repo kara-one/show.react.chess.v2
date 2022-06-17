@@ -65,10 +65,12 @@ const boardLoadAction = (
         : (checkFen as ParsedFen);
 
     // Changing state fields from parsedFen
-    dispatch({
-      type: BoardActionTypes.BOARD_TURN,
-      turn: parsedFen.turn,
-    });
+    if (chess.turn !== parsedFen.turn) {
+      dispatch({
+        type: BoardActionTypes.BOARD_TURN,
+        turn: parsedFen.turn,
+      });
+    }
 
     dispatch({
       type: BoardActionTypes.BOARD_EP_SQUARE,

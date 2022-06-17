@@ -37,7 +37,9 @@ const boardMakeMoveAction = (square: number): Function => {
     };
     const chessMakeMove: PropsMove = boardUtils.makeMove(move, chessData);
 
-    dispatch({ type: BoardActionTypes.BOARD_TURN, turn: chessMakeMove.turn });
+    if (chessData.turn !== chessMakeMove.turn) {
+      dispatch({ type: BoardActionTypes.BOARD_TURN, turn: chessMakeMove.turn });
+    }
     dispatch({ type: BoardActionTypes.BOARD_ITEM, board: chessMakeMove.board });
     dispatch({
       type: BoardActionTypes.BOARD_CASTLING,
