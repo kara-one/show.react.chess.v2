@@ -8,10 +8,21 @@ import { store } from './store';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
-root.render(
-  <React.StrictMode>
+
+if (process.env.NODE_ENV === 'development') {
+  /** Develop Mode */
+  root.render(
     <Provider store={store}>
       <App />
-    </Provider>
-  </React.StrictMode>,
-);
+    </Provider>,
+  );
+} else {
+  /* Production Mode */
+  root.render(
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>,
+  );
+}
