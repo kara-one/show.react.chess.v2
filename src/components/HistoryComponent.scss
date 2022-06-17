@@ -1,0 +1,19 @@
+@import "../variables";
+
+.history {
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 1fr;
+  max-height: 100vh;
+
+  .history-list {
+    padding: 0 10px;
+    overflow-y: auto;
+
+    ol {
+      padding-left: 10px;
+      font-size: 12px;
+      line-height: 20px;
+    }
+  }
+}

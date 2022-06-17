@@ -4,6 +4,7 @@ import {
   Checkmate,
   IBoardState,
   SQUARES,
+  Timer,
 } from '../types/typesBoard/typesBoardState';
 
 export const IS_DEVELOP = false;
@@ -131,6 +132,11 @@ export const CHECKMATE: Checkmate = {
   },
 };
 
+export const TIMER: Timer = {
+  [COLORS.WHITE]: 0,
+  [COLORS.BLACK]: 0,
+};
+
 export const initialState: IBoardState = {
   board: new Array(128),
   currentPlayer: COLORS.WHITE,
@@ -144,6 +150,7 @@ export const initialState: IBoardState = {
   half_moves: 0,
   move_number: 1,
   history: [],
+  timer: TIMER,
   checkmate: CHECKMATE,
   header: {},
   comments: {},

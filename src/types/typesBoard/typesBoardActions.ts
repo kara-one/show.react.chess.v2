@@ -12,6 +12,7 @@ export enum BoardActionTypes {
   BOARD_HALF_MOVES = 'BOARD_HALF_MOVES',
   BOARD_MOVE_NUMBER = 'BOARD_MOVE_NUMBER',
   BOARD_HISTORY = 'BOARD_HISTORY',
+  BOARD_TIMER = 'BOARD_TIMER',
   BOARD_CHECKMATE = 'BOARD_CHECKMATE',
   BOARD_HEADER = 'BOARD_HEADER',
   BOARD_COMMENTS = 'BOARD_COMMENTS',
@@ -55,6 +56,10 @@ interface BoardHistoryAction {
   type: BoardActionTypes.BOARD_HISTORY;
   history: IBoardState['history'];
 }
+interface BoardTimerAction {
+  type: BoardActionTypes.BOARD_TIMER;
+  timer: IBoardState['timer'];
+}
 interface BoardCheckmateAction {
   type: BoardActionTypes.BOARD_CHECKMATE;
   checkmate: IBoardState['checkmate'];
@@ -86,6 +91,7 @@ export type BoardActions =
   | BoardHalfMovesAction
   | BoardMoveNumberAction
   | BoardHistoryAction
+  | BoardTimerAction
   | BoardCheckmateAction
   | BoardHeaderAction
   | BoardCommentsAction

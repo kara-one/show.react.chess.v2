@@ -26,6 +26,8 @@ export const boardReducer = (
       return { ...state, move_number: action.moveNumber };
     case BoardActionTypes.BOARD_HISTORY:
       return { ...state, history: action.history };
+    case BoardActionTypes.BOARD_TIMER:
+      return { ...state, timer: action.timer };
     case BoardActionTypes.BOARD_CHECKMATE:
       return { ...state, checkmate: action.checkmate };
     case BoardActionTypes.BOARD_HEADER:

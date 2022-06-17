@@ -74,6 +74,11 @@ export interface Checkmate {
   };
 }
 
+export interface Timer {
+  [COLORS.WHITE]: number;
+  [COLORS.BLACK]: number;
+}
+
 export interface IBoardState {
   board: Array<BoardItem | null>;
   currentPlayer?: `${COLORS}`;
@@ -87,7 +92,8 @@ export interface IBoardState {
   half_moves: number;
   move_number: number;
   history: History[];
-  checkmate: Checkmate,
+  timer: Timer;
+  checkmate: Checkmate;
   header?: object;
   comments: Comments;
 }
