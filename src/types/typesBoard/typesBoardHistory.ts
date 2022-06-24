@@ -1,6 +1,6 @@
 import { Fen } from "./typesBoardFen";
 import { COLORS, FIGURES, Kings } from "./typesBoardFigures";
-import { BITS, SQUARES } from "./typesBoardState";
+import { BITS, Checkmate, SQUARES } from "./typesBoardState";
 
 export interface Comments {
   [Name: Fen]: any;
@@ -24,4 +24,5 @@ export interface History {
   ep_square: number;
   half_moves: number;
   move_number: number;
+  checkmate: Checkmate;
 }

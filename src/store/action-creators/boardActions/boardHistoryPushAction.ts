@@ -13,7 +13,7 @@ const boardHistoryPushAction = (move: HistoryMove): Function => {
     const { chess } = getState() as RootReducer;
     const copyChess = boardUtils.clone(chess);
 
-    copyChess.history.push({
+    const lastHistory = {
       move: move,
       kings: copyChess.kings,
       turn: copyChess.turn,
@@ -21,7 +21,18 @@ const boardHistoryPushAction = (move: HistoryMove): Function => {
       ep_square: copyChess.ep_square,
       half_moves: copyChess.half_moves,
       move_number: copyChess.move_number,
+      checkmate: copyChess.checkmate,
+    };
+
+    const isCheckmate = boardUtils.isCheckmate(copyChess.board, lastHistory);
+    dispatch({
+      type: BoardActionTypes.BOARD_CHECKMATE,
+      checkmate: isCheckmate,
     });
+
+    lastHistory.checkmate = isCheckmate;
+    copyChess.history.push(lastHistory);
+
     dispatch({
       type: BoardActionTypes.BOARD_HISTORY,
       history: copyChess.history,

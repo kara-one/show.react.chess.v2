@@ -8,7 +8,7 @@ interface ResponseTimer {
 }
 
 export const useTimer = (color: `${COLORS}`): ResponseTimer => {
-  const { timer, turn } = useTypedSelector((state) => state.chess);
+  const { timer, turn, checkmate } = useTypedSelector((state) => state.chess);
   const [currentTimer, setCurrentTimer] = useState(timer[color]);
   const [currentInterval, setCurrentInterval] = useState(0);
 
@@ -34,7 +34,7 @@ export const useTimer = (color: `${COLORS}`): ResponseTimer => {
   useEffect(() => {
     stopTimer(currentInterval);
 
-    if (turn === color) {
+    if (turn === color && !checkmate.checkmate[turn]) {
       runTimer(currentTimer, setCurrentTimer, setCurrentInterval);
     }
   }, [turn]); // eslint-disable-line react-hooks/exhaustive-deps

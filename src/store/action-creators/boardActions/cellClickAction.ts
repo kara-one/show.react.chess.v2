@@ -3,7 +3,6 @@ import { BoardActions } from '../../../types/typesBoard/typesBoardActions';
 import { COLORS } from '../../../types/typesBoard/typesBoardFigures';
 import { BoardCell } from '../../../types/typesBoard/typesBoardState';
 import { RootReducer } from '../../reducers';
-import boardCheckmateAction from './boardCheckmateAction';
 import boardMakeMoveAction from './boardMakeMoveAction';
 import boardMovesAction from './boardMovesAction';
 import boardSetSelectedAction from './boardSetSelectedAction';
@@ -20,7 +19,6 @@ const cellClickAction = (curentCell: BoardCell): Function => {
       dispatch(boardSetSelectedAction(curentCell.name));
       dispatch(boardMovesAction(curentCell.name));
       dispatch(boardMakeMoveAction(curentCell.name));
-      dispatch(boardCheckmateAction());
     }
   };
 };

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { COLORS, FIGURES } from '../types/typesBoard/typesBoardFigures';
 import { History } from '../types/typesBoard/typesBoardHistory';
-import { SQUARES } from '../types/typesBoard/typesBoardState';
+import { BITS, SQUARES } from '../types/typesBoard/typesBoardState';
 import './HistoryComponent.scss';
 import TimersBlockComponent from './TimersBlockComponent';
 
@@ -23,6 +23,7 @@ const HistoryComponent = () => {
     for (let i = 0; i < history.length; i++) {
       const historyMove = history[i].move;
       const id = i > 0 ? Math.floor(i / 2) : 0;
+      let moveStr = '';
 
       if (i % 2 === 0) {
         response.push({
@@ -32,13 +33,27 @@ const HistoryComponent = () => {
         });
       }
 
-      let moveStr =
-        historyMove.piece !== FIGURES.PAWN
-          ? historyMove.piece.toUpperCase()
-          : '';
-      moveStr += SQUARES[historyMove.from];
-      moveStr += historyMove.flags === 2 ? 'x' : '—';
-      moveStr += SQUARES[historyMove.to];
+      if (historyMove.flags === BITS.QSIDE_CASTLE) {
+        moveStr = '0-0-0';
+      } else if (historyMove.flags === BITS.KSIDE_CASTLE) {
+        moveStr = '0-0';
+      } else {
+        moveStr =
+          historyMove.piece !== FIGURES.PAWN
+            ? historyMove.piece.toUpperCase()
+            : '';
+        moveStr += SQUARES[historyMove.from];
+        moveStr += historyMove.flags === 2 ? 'x' : '—';
+        moveStr += SQUARES[historyMove.to];
+
+        if (history[i].checkmate.check[history[i].turn]) {
+          moveStr += '+';
+        }
+
+        if (history[i].checkmate.checkmate[history[i].turn]) {
+          moveStr += '+';
+        }
+      }
 
       response[id][historyMove.color] = moveStr;
     }

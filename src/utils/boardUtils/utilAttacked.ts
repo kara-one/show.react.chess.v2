@@ -13,6 +13,7 @@ import {
 } from '../../types/typesBoard/typesBoardFigures';
 import { History } from '../../types/typesBoard/typesBoardHistory';
 import {
+  Checkmate,
   IBoardState,
   PropsMove,
   SQUARES,
@@ -101,7 +102,17 @@ const in_checkmate = (chessData: PropsMove) => {
 };
 
 /** Check for checkmate after each turn for two kings at once */
-const isCheckmate = (chessData: PropsMove, lastHistory: History) => {
+const isCheckmate = (board: IBoardState['board'], lastHistory: History): Checkmate => {
+  const chessData: PropsMove = {
+    board: board,
+    castling: lastHistory.castling,
+    ep_square: lastHistory.ep_square,
+    half_moves: lastHistory.half_moves,
+    kings: lastHistory.kings,
+    move_number: lastHistory.move_number,
+    turn: lastHistory.turn
+  };
+
   const copyChessData: PropsMove = boardUtils.clone(chessData);
   const chm = CHECKMATE;
 
