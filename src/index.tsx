@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import './index.scss';
 import App from './App';
 import { Provider } from 'react-redux';
@@ -13,7 +14,9 @@ if (process.env.NODE_ENV === 'development') {
   /** Develop Mode */
   root.render(
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>,
   );
 } else {
@@ -21,7 +24,9 @@ if (process.env.NODE_ENV === 'development') {
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </Provider>
     </React.StrictMode>,
   );

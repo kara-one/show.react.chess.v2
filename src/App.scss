@@ -1,22 +1,9 @@
-@import "./variables";
+@import './scss/variables';
 
 .App {
   display: grid;
-  grid-template-columns: 1fr $widthHistoryBlock;
+  grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   background-color: $black;
   min-height: 100vh;
-
-  .board-wrap {
-    display: grid;
-    place-content: center;
-  }
-
-  .history-wrap {
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-column: 1fr;
-    background-color: $white;
-    width: $widthHistoryBlock;
-  }
 }
