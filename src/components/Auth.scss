@@ -1,0 +1,171 @@
+@import '../scss/variables';
+@import '../scss/mx_buttons.scss';
+
+.auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+
+  @media (min-width: 350px) {
+    padding: 25px;
+  }
+
+  .panel {
+    background-color: $white;
+    width: 80%;
+    min-width: 290px;
+    max-width: 400px;
+    padding: 25px;
+    border-radius: 3px;
+
+    @media (min-width: 350px) {
+      min-width: 300px;
+    }
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin-bottom: 15px;
+  }
+
+  .form-field-wrap {
+    position: relative;
+    height: 35px;
+    border: 1px solid $fieldBorder;
+    border-radius: 3px;
+  }
+
+  .password {
+    @include mx-button-icon('eye-off-sharp');
+
+    position: absolute !important;
+    top: 0;
+    right: 5px;
+
+    &.show {
+      @include mx-button-icon('eye-sharp');
+
+      position: absolute !important;
+      top: 0;
+      right: 5px;
+    }
+  }
+
+  label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    z-index: 50;
+    background-color: $white-light;
+    margin-bottom: 10px;
+    padding: 0 5px;
+    font-size: 18px;
+    color: $fontColor;
+    transform: translate(0, -50%);
+    transition: all 0.2s;
+  }
+
+  input[type='text'],
+  input[type='email'],
+  input[type='password'] {
+    background-color: $white-light;
+    width: 100%;
+    height: 100%;
+    padding: 0 15px;
+    font-size: 16px;
+    border: none;
+
+    &[name='pwd'] {
+      padding-right: 50px;
+    }
+
+    &:not([value='']) + label,
+    &:not([value]):focus + label,
+    &:focus + label {
+      top: 0;
+      font-size: 10px;
+    }
+
+    &:not([value]) + label {
+      top: 50%;
+      font-size: 18px;
+    }
+  }
+
+  button[type='submit'] {
+    background-color: blue;
+    height: 35px;
+    font-size: 18px;
+    color: #c0ccda;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .forgot {
+    font-size: 11px;
+    color: $fontColor;
+    text-align: right;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .separator {
+    position: relative;
+    height: 35px;
+    margin-bottom: 15px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      background-color: $fieldBorder;
+      width: 100%;
+      height: 1px;
+    }
+
+    span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 50;
+      background-color: $white;
+      padding: 0 15px;
+      color: $fontColor;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .auth-google {
+    @include mx-icon-left-center(25px, 25px, $fontColor, 'logo-google');
+
+    height: 35px;
+    width: 100%;
+    font-size: 16px;
+    color: $fontColor;
+    border: 1px solid $fieldBorder;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+      @include mx-icon-left-center(25px, 25px, rgb(172, 34, 34), 'logo-google');
+    }
+  }
+}

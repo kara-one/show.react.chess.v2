@@ -1,0 +1,38 @@
+@import './variables.scss';
+@import './mx_icon.scss';
+
+@mixin mx-button-base($bgColor, $hoverColor, $textColor, $height) {
+  background-color: $bgColor !important;
+  border-radius: 5px;
+  height: $height;
+  width: auto;
+  min-width: auto;
+  padding: 0 25px !important;
+  font-size: 16px;
+  color: $textColor !important;
+  line-height: $height;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 200ms ease 0s;
+  cursor: pointer;
+  box-shadow: none !important;
+  border: none;
+
+  &:hover {
+    background-color: $hoverColor !important;
+  }
+
+  &:disabled {
+    background-color: $colorDisabled !important;
+  }
+}
+
+@mixin mx-button-icon($filename) {
+  @include mx-icon-center (25px, 25px, $fontColor, $filename);
+  @include mx-button-base (transparent, transparent, transparent, 35px);
+
+  min-width: 0 !important;
+  width: 35px !important;
+  padding: 0 !important;
+}

@@ -1,0 +1,21 @@
+@import "../scss/variables";
+
+.home {
+  display: grid;
+  grid-template-columns: 1fr $widthHistoryBlock;
+  grid-template-rows: 1fr;
+  min-height: 100vh;
+
+  .board-wrap {
+    display: grid;
+    place-content: center;
+  }
+
+  .history-wrap {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-column: 1fr;
+    background-color: $white;
+    width: $widthHistoryBlock;
+  }
+}

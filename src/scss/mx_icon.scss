@@ -1,0 +1,47 @@
+@mixin mx-icon-any($width, $height, $color, $filename) {
+  position: relative !important;
+
+  &::before {
+    position: absolute;
+    content: '';
+    background-color: $color;
+    mask-image: url('/assets/icons/#{$filename}.svg');
+    -webkit-mask-image: url('/assets/icons/#{$filename}.svg');
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    width: $width;
+    height: $height;
+  }
+}
+
+@mixin mx-icon-center($width, $height, $color, $filename) {
+  @include mx-icon-any($width, $height, $color, $filename);
+
+  &::before {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@mixin mx-icon-right-center($width, $height, $color, $filename) {
+  @include mx-icon-any($width, $height, $color, $filename);
+
+  &::before {
+    right: 15px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+}
+
+@mixin mx-icon-left-center($width, $height, $color, $filename) {
+  @include mx-icon-any($width, $height, $color, $filename);
+
+  &::before {
+    left: 15px;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+}
