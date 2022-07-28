@@ -1,7 +1,13 @@
-import React, { ChangeEvent, FormEvent } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { validateEmail } from '../utils/validateUtils';
 import './Auth.scss';
 
 const Auth = () => {
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
+
   const showPwd = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
@@ -25,13 +31,29 @@ const Auth = () => {
   const inputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const elem = e.target as HTMLInputElement;
     elem.setAttribute('value', elem.value);
+
+    if (e.target.id === 'email') {
+      setEmail(e.target.value);
+      setEmailError(false);
+    }
+    if (e.target.id === 'pwd') {
+      setPassword(e.target.value);
+      setPasswordError(false);
+    }
   };
 
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (email === '' || !validateEmail(email)) {
+      setEmailError(true);
+    }
+    if (password === '') {
+      setPasswordError(true);
+    }
     console.log('e: ', e);
-    console.log('submit');
+    console.log('email', email);
+    console.log('pwd', password);
   };
 
   return (
@@ -39,11 +61,16 @@ const Auth = () => {
       <div className="panel">
         <form action="" method="post" className="form" onSubmit={submitForm}>
           <div className="form-row">
-            <div className="form-field-wrap">
+            <div
+              className={['form-field-wrap', emailError ? 'error' : ''].join(
+                ' ',
+              )}
+            >
               <input
                 type="email"
                 name="email"
                 id="email"
+                value={email}
                 onChange={inputChange}
                 tabIndex={1}
                 aria-labelledby="Email"
@@ -52,11 +79,16 @@ const Auth = () => {
             </div>
           </div>
           <div className="form-row">
-            <div className="form-field-wrap">
+            <div
+              className={['form-field-wrap', passwordError ? 'error' : ''].join(
+                ' ',
+              )}
+            >
               <input
                 type="password"
                 name="pwd"
                 id="pwd"
+                value={password}
                 onChange={inputChange}
                 tabIndex={2}
                 aria-labelledby="Password"
