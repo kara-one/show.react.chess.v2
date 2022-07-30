@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import { BoardActions, BoardActionTypes } from "../../../types/typesBoard/typesBoardActions";
 import { boardUtils } from "../../../utils/boardUtils";
-import { EMPTY } from "../../initialState";
+import { EMPTY } from "../../initialBoardState";
 import { RootReducer } from "../../reducers";
 
 const boardSetSelectedAction = (square: number): Function => {

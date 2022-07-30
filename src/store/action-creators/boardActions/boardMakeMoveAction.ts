@@ -5,7 +5,7 @@ import {
 } from '../../../types/typesBoard/typesBoardActions';
 import { PropsMove } from '../../../types/typesBoard/typesBoardState';
 import { boardUtils } from '../../../utils/boardUtils';
-import { EMPTY } from '../../initialState';
+import { EMPTY } from '../../initialBoardState';
 import { RootReducer } from '../../reducers';
 import boardHistoryPushAction from './boardHistoryPushAction';
 

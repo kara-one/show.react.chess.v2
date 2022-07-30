@@ -6,7 +6,7 @@ import {
 import { FIGURES } from '../../../types/typesBoard/typesBoardFigures';
 import { BoardItem, SQUARES } from '../../../types/typesBoard/typesBoardState';
 import { boardUtils } from '../../../utils/boardUtils';
-import { EMPTY } from '../../initialState';
+import { EMPTY } from '../../initialBoardState';
 import { RootReducer } from '../../reducers';
 
 /**

@@ -1,4 +1,4 @@
-import { EMPTY, FEN_ERRORS, IS_DEVELOP } from '../../store/initialState';
+import { EMPTY, FEN_ERRORS, IS_DEVELOP } from '../../store/initialBoardState';
 import {
   Fen,
   ParsedFen,

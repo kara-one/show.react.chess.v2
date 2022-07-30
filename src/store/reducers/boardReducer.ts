@@ -1,7 +1,7 @@
 
 import { BoardActions, BoardActionTypes } from '../../types/typesBoard/typesBoardActions';
 import { IBoardState } from '../../types/typesBoard/typesBoardState';
-import { initialState } from '../initialState';
+import { initialState } from '../initialBoardState';
 
 export const boardReducer = (
   state = initialState,

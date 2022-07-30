@@ -1,4 +1,4 @@
-import { EMPTY } from '../../store/initialState';
+import { EMPTY } from '../../store/initialBoardState';
 import { COLORS } from '../../types/typesBoard/typesBoardFigures';
 import {
   BITS,

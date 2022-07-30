@@ -3,7 +3,7 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { boardUtils } from '../utils/boardUtils';
-import { labelChars, labelNums } from '../store/initialState';
+import { labelChars, labelNums } from '../store/initialBoardState';
 import CellComponent from './CellComponent';
 
 const BoardComponent: FC = () => {

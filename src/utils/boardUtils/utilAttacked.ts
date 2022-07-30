@@ -5,7 +5,7 @@ import {
   PIECE_OFFSETS,
   RAYS,
   SHIFTS,
-} from '../../store/initialState';
+} from '../../store/initialBoardState';
 import {
   COLORS,
   FIGURES,

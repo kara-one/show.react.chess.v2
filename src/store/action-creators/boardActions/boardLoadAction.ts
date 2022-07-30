@@ -13,7 +13,7 @@ import {
   SQUARES,
 } from '../../../types/typesBoard/typesBoardState';
 import { boardUtils } from '../../../utils/boardUtils';
-import { DEFAULT_POSITION, EMPTY, IS_DEVELOP } from '../../initialState';
+import { DEFAULT_POSITION, EMPTY, IS_DEVELOP } from '../../initialBoardState';
 import { RootReducer } from '../../reducers';
 
 /**

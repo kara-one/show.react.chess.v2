@@ -1,5 +1,5 @@
 import { boardUtils } from '.';
-import { EMPTY, ROOKS } from '../../store/initialState';
+import { EMPTY, ROOKS } from '../../store/initialBoardState';
 import { COLORS, FIGURES } from '../../types/typesBoard/typesBoardFigures';
 import { HistoryMove } from '../../types/typesBoard/typesBoardHistory';
 import { BITS, PropsMove } from '../../types/typesBoard/typesBoardState';

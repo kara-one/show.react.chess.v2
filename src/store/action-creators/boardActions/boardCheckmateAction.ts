@@ -8,7 +8,7 @@ import {
 } from '../../../types/typesBoard/typesBoardHistory';
 import { boardUtils } from '../../../utils/boardUtils';
 import { RootReducer } from '../../reducers';
-import { EMPTY } from '../../initialState';
+import { EMPTY } from '../../initialBoardState';
 
 const boardCheckmateAction = (): Function => {
   return (dispatch: Dispatch<BoardActions>, getState: Function): void => {

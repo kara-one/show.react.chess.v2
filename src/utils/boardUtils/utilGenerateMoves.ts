@@ -7,7 +7,7 @@ import {
   SQUARES,
 } from '../../types/typesBoard/typesBoardState';
 import { boardUtils } from '../boardUtils';
-import { PAWN_OFFSETS, PIECE_OFFSETS } from '../../store/initialState';
+import { PAWN_OFFSETS, PIECE_OFFSETS } from '../../store/initialBoardState';
 import { HistoryMove } from '../../types/typesBoard/typesBoardHistory';
 
 interface nextMovesChessData {
