@@ -1,8 +1,14 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { auth } from '../firebase';
+import { useActions } from '../hooks/useActions';
 import { validateEmail } from '../utils/validateUtils';
 import './Auth.scss';
 
 const Auth = () => {
+  const user = auth.currentUser;
+  console.log('user12: ', user);
+
+  const { userAuth } = useActions();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState('');
@@ -44,16 +50,20 @@ const Auth = () => {
 
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    let isValid = true;
 
     if (email === '' || !validateEmail(email)) {
       setEmailError(true);
+      isValid = false;
     }
     if (password === '') {
       setPasswordError(true);
+      isValid = false;
     }
-    console.log('e: ', e);
-    console.log('email', email);
-    console.log('pwd', password);
+
+    if (isValid) {
+      userAuth(email, password);
+    }
   };
 
   return (

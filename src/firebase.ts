@@ -1,6 +1,6 @@
-import { initializeApp } from 'firebase/app';
+import { FirebaseError, initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
-import { getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBOBTtGdgy6UbLtFqXzBuf4Dhp9RN4_fCc',
@@ -14,3 +14,41 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 export const auth = getAuth(app);
+
+export const userSignUp = async (email: string, password: string) => {
+  const response = {
+    status: false,
+    message: '',
+  };
+
+  try {
+    const signUp = await createUserWithEmailAndPassword(auth, email, password);
+    console.log('signUp: ', signUp);
+  } catch (error: unknown) {
+    const { code } = error as FirebaseError;
+    console.log('error: ', code);
+  }
+
+  return response;
+};
+
+export const userSignIn = async (email: string, password: string) => {
+  const response = {
+    status: false,
+    message: '',
+  };
+
+  try {
+    const signIn = await signInWithEmailAndPassword(auth, email, password);
+    console.log('signIn: ', signIn);
+  } catch (error: unknown) {
+    const { code } = error as FirebaseError;
+    console.log('error: ', code);
+    if (code === 'auth/user-not-found') {
+      const signUp = userSignUp(email, password);
+      console.log('signUp: ', signUp);
+    }
+  }
+
+  return response;
+};

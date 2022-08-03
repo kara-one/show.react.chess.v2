@@ -3,11 +3,13 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.scss';
 import Auth from './components/Auth';
 import Home from './components/Home';
-import { auth } from './firebase';
+import { useAuth } from './hooks/useAuth';
 
 function App() {
-  const user = auth.currentUser;
-  let navigate = useNavigate();
+  const userAuth = useAuth();
+  const user = userAuth.user;
+  const navigate = useNavigate();
+  console.log('userAuth: ', userAuth);
 
   useEffect(() => {
     if (user) {
@@ -17,7 +19,6 @@ function App() {
     }
   }, [user, navigate]);
 
-  console.log('user: ', user);
   return (
     <div className="App">
       <Routes>
