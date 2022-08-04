@@ -1,32 +1,20 @@
-import React, { useEffect } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import './App.scss';
-import Auth from './components/Auth';
-import Home from './components/Home';
+import React from 'react';
 import { useAuth } from './hooks/useAuth';
+import LoadingComponent from './components/LoadingComponent';
+import MainComponent from './components/MainComponent';
+import './App.scss';
 
 function App() {
-  const userAuth = useAuth();
-  const user = userAuth.user;
-  const navigate = useNavigate();
-  console.log('userAuth: ', userAuth);
+  const { pending, isSignedIn } = useAuth();
+  let screen;
 
-  useEffect(() => {
-    if (user) {
-      navigate('/');
-    } else {
-      navigate('/auth');
-    }
-  }, [user, navigate]);
+  if (pending) {
+    screen = <LoadingComponent />;
+  } else {
+    screen = <MainComponent isSignedIn={isSignedIn} />;
+  }
 
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Auth />} />
-      </Routes>
-    </div>
-  );
+  return <div className="App">{screen}</div>;
 }
 
 export default App;
