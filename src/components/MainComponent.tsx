@@ -21,12 +21,12 @@ const MainComponent: FC<MainProps> = (props: MainProps) => {
   }, [isSignedIn, navigate]);
 
   return (
-    <div>
+    <>
       <Routes>
         <Route path="/" element={<HomeComponent />} />
         <Route path="/auth" element={<AuthComponent />} />
       </Routes>
-    </div>
+    </>
   );
 };
 

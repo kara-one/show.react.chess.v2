@@ -1,0 +1,20 @@
+@import "../scss/variables";
+@import '../scss/mx_buttons.scss';
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  height: 50px;
+  padding: 0 15px;
+  border-bottom: 1px solid $black;
+
+  .logout {
+    @include mx-button-icon('log-out-outline');
+
+    width: 35px;
+    height: 35px;
+  }
+}

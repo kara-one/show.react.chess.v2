@@ -1,6 +1,11 @@
 import { FirebaseError, initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBOBTtGdgy6UbLtFqXzBuf4Dhp9RN4_fCc',
@@ -48,6 +53,24 @@ export const userSignIn = async (email: string, password: string) => {
       const signUp = userSignUp(email, password);
       console.log('signUp: ', signUp);
     }
+  }
+
+  return response;
+};
+
+export const userSignOut = async () => {
+  const response = {
+    status: false,
+    message: '',
+  };
+
+  try {
+    await signOut(auth);
+    response.status = true;
+  } catch (error: unknown) {
+    const { code } = error as FirebaseError;
+    response.message = code;
+    console.log('error: ', code);
   }
 
   return response;

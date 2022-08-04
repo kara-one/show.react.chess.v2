@@ -1,6 +1,6 @@
 import React from 'react';
+import BarComponent from './BarComponent';
 import BoardComponent from './Board/BoardComponent';
-import HistoryComponent from './HistoryComponent';
 import './HomeComponent.scss';
 
 const HomeComponent = () => {
@@ -10,7 +10,7 @@ const HomeComponent = () => {
         <BoardComponent />
       </div>
       <div className="history-wrap">
-        <HistoryComponent />
+        <BarComponent />
       </div>
     </div>
   );
