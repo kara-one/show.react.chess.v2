@@ -2,9 +2,9 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { auth } from '../firebase';
 import { useActions } from '../hooks/useActions';
 import { validateEmail } from '../utils/validateUtils';
-import './Auth.scss';
+import './AuthComponent.scss';
 
-const Auth = () => {
+const AuthComponent = () => {
   const user = auth.currentUser;
   console.log('user12: ', user);
 
@@ -143,4 +143,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default AuthComponent;

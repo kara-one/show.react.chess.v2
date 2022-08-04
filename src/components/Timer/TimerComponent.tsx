@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useActions } from '../hooks/useActions';
-import { useTimer } from '../hooks/useTimer';
-import { useTypedSelector } from '../hooks/useTypedSelector';
-import { COLORS } from '../types/typesBoard/typesBoardFigures';
+import { useActions } from '../../hooks/useActions';
+import { useTimer } from '../../hooks/useTimer';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { COLORS } from '../../types/typesBoard/typesBoardFigures';
 import './TimerComponent.scss';
 
 const TimerComponent = (prop: { type: `${COLORS}` }) => {

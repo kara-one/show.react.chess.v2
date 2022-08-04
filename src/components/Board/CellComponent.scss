@@ -1,4 +1,4 @@
-@import '../scss/variables';
+@import '../../scss/variables';
 
 .cell {
   position: relative;
@@ -49,27 +49,27 @@
     }
     &.rook {
       &::before {
-        background-image: url(../assets/black_rook.png);
+        background-image: url(../../assets/black_rook.png);
       }
     }
     &.knight {
       &::before {
-        background-image: url(../assets/black_knight.png);
+        background-image: url(../../assets/black_knight.png);
       }
     }
     &.bishop {
       &::before {
-        background-image: url(../assets/black_bishop.png);
+        background-image: url(../../assets/black_bishop.png);
       }
     }
     &.queen {
       &::before {
-        background-image: url(../assets/black_queen.png);
+        background-image: url(../../assets/black_queen.png);
       }
     }
     &.king {
       &::before {
-        background-image: url(../assets/black_king.png);
+        background-image: url(../../assets/black_king.png);
       }
       &.hint {
         &::before {
@@ -79,7 +79,7 @@
     }
     &.pawn {
       &::before {
-        background-image: url(../assets/black_pawn.png);
+        background-image: url(../../assets/black_pawn.png);
       }
     }
     &.hint {
@@ -105,27 +105,27 @@
     }
     &.rook {
       &::before {
-        background-image: url(../assets/white_rook.png);
+        background-image: url(../../assets/white_rook.png);
       }
     }
     &.knight {
       &::before {
-        background-image: url(../assets/white_knight.png);
+        background-image: url(../../assets/white_knight.png);
       }
     }
     &.bishop {
       &::before {
-        background-image: url(../assets/white_bishop.png);
+        background-image: url(../../assets/white_bishop.png);
       }
     }
     &.queen {
       &::before {
-        background-image: url(../assets/white_queen.png);
+        background-image: url(../../assets/white_queen.png);
       }
     }
     &.king {
       &::before {
-        background-image: url(../assets/white_king.png);
+        background-image: url(../../assets/white_king.png);
       }
       &.hint {
         &::before {
@@ -135,7 +135,7 @@
     }
     &.pawn {
       &::before {
-        background-image: url(../assets/white_pawn.png);
+        background-image: url(../../assets/white_pawn.png);
       }
     }
     &.hint {
@@ -148,7 +148,7 @@
   &.check {
     &.king {
       &::before {
-        background-image: url(../assets/check_king.png);
+        background-image: url(../../assets/check_king.png);
       }
     }
   }
@@ -156,7 +156,7 @@
   &.checkmate {
     &.king {
       &::before {
-        background-image: url(../assets/checkmate_king.png);
+        background-image: url(../../assets/checkmate_king.png);
       }
     }
   }

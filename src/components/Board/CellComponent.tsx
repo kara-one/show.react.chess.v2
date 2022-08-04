@@ -1,8 +1,8 @@
 import './CellComponent.scss';
 import React, { FC } from 'react';
-import { useActions } from '../hooks/useActions';
-import { boardUtils } from '../utils/boardUtils';
-import { BoardCell } from '../types/typesBoard/typesBoardState';
+import { useActions } from '../../hooks/useActions';
+import { boardUtils } from '../../utils/boardUtils';
+import { BoardCell } from '../../types/typesBoard/typesBoardState';
 
 interface CellProps {
   curentCell: BoardCell;

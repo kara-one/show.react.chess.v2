@@ -1,5 +1,5 @@
 import React from 'react';
-import { COLORS } from '../types/typesBoard/typesBoardFigures';
+import { COLORS } from '../../types/typesBoard/typesBoardFigures';
 import TimerComponent from './TimerComponent';
 import './TimersBlockComponent.scss';
 

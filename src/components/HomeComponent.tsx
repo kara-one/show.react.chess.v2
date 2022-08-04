@@ -1,9 +1,9 @@
 import React from 'react';
-import BoardComponent from './BoardComponent';
+import BoardComponent from './Board/BoardComponent';
 import HistoryComponent from './HistoryComponent';
-import './Home.scss';
+import './HomeComponent.scss';
 
-const Home = () => {
+const HomeComponent = () => {
   return (
     <div className="home">
       <div className="board-wrap">
@@ -16,4 +16,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeComponent;

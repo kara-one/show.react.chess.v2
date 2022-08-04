@@ -4,7 +4,7 @@ import { COLORS, FIGURES } from '../types/typesBoard/typesBoardFigures';
 import { History } from '../types/typesBoard/typesBoardHistory';
 import { BITS, SQUARES } from '../types/typesBoard/typesBoardState';
 import './HistoryComponent.scss';
-import TimersBlockComponent from './TimersBlockComponent';
+import TimersBlockComponent from './Timer/TimersBlockComponent';
 
 interface HistoryList {
   [COLORS.WHITE]: string;
